@@ -206,9 +206,10 @@ void loop() {
    // myGLCD.setColor(0, 0, 0);
    // myGLCD.drawLine (xpos+1, 255-OldSample[xpos+1]*4, xpos+2, 255-OldSample[xpos+2]*4);  
     if (xpos==0) TV.draw_line((120*(xpos+1))/320, 1, (120*(xpos+1))/320, 96); // myGLCD.drawLine (xpos+1, 1, xpos+1, 239);
-// Draw the new data // SONO ARRIVATO QUAAAA
-    myGLCD.setColor(255, 255, 255);
-    myGLCD.drawLine (xpos, 255-Sample[xpos]*4, xpos+1, 255-Sample[xpos+1]*4); 
+// Draw the new data
+    TV.draw_line((120*xpos)/320, (96*(255-Sample[xpos]*4))/240, (120*(xpos+1))/320, (96*(255-Sample[xpos+1]*4))/240);
+   // myGLCD.setColor(255, 255, 255);
+   // myGLCD.drawLine (xpos, 255-Sample[xpos]*4, xpos+1, 255-Sample[xpos+1]*4); 
   }  
 
 //  Determine sample voltage peak to peak
@@ -220,19 +221,33 @@ void loop() {
     if (Sample[xpos] < MinSample) MinSample=Sample[xpos];
     }
 // display the sample time, delay time and trigger level  
-  myGLCD.setColor(0, 0, 255);
+ // myGLCD.setColor(0, 0, 255);
   SampleTime=EndSample-StartSample;
-  myGLCD.print("uSec.", 240, 10);
-  myGLCD.print("     ", 240, 30);
-  myGLCD.print(itoa(SampleTime, buf, 10), 240, 30);
-  myGLCD.print("Delay", 240, 70);
-  myGLCD.print("     ", 240, 90);
-  myGLCD.print(itoa(dTime, buf, 10), 240, 90);
-  myGLCD.print("Trig.", 240, 130);
-  myGLCD.print(itoa(Trigger, buf, 10), 240, 150);
+  
+  TV.select_font(font4x6);
+  TV.print(90, 4, "uSec.");
+ // TV.print(90, 12, "     ");
+  TV.print(90, 12, itoa(SampleTime, buf, 10));
+  TV.print(90, 28, "Delay");
+ // TV.print(90, 36, "     ");
+  TV.print(90, 36, itoa(dTime, buf, 10));
+  TV.print(90, 52, "Trig.");
+  TV.print(90, 60, itoa(Trigger, buf, 10));
+    
+ // myGLCD.print("uSec.", 240, 10);
+ // myGLCD.print("     ", 240, 30);
+ // myGLCD.print(itoa(SampleTime, buf, 10), 240, 30);
+ // myGLCD.print("Delay", 240, 70);
+ // myGLCD.print("     ", 240, 90);
+ // myGLCD.print(itoa(dTime, buf, 10), 240, 90);
+ // myGLCD.print("Trig.", 240, 130);
+ // myGLCD.print(itoa(Trigger, buf, 10), 240, 150);
+
 // Range of 0 to 64 * 78 = 4992 mV
   SampleSize=(MaxSample-MinSample)*78;
-  myGLCD.print("mVolt", 240, 190);
-  myGLCD.print(itoa(SampleSize, buf, 10), 240, 210);
+  TV.print(90, 76, "mVolt");
+  TV.print(90, 84, itoa(SampleSize, buf, 10));
+ // myGLCD.print("mVolt", 240, 190);
+ // myGLCD.print(itoa(SampleSize, buf, 10), 240, 210);
     } 
 }
