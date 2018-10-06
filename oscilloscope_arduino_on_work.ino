@@ -201,12 +201,12 @@ void loop() {
   for(int xpos=0; xpos<239; xpos++) {
 // Erase the old stuff
     TV.clear_screen();
-    TV.draw_line(xpos+1, (96*(255-OldSample[xpos+1]*4))/240, xpos+2, (96*(255-OldSample[xpos+2]*4))/240, WHITE);
+    TV.draw_line((120*(xpos+1))/320, (96*(255-OldSample[xpos+1]*4))/240, (120*(xpos+2))/320, (96*(255-OldSample[xpos+2]*4))/240, WHITE);
 
    // myGLCD.setColor(0, 0, 0);
    // myGLCD.drawLine (xpos+1, 255-OldSample[xpos+1]*4, xpos+2, 255-OldSample[xpos+2]*4);  
-    if (xpos==0) myGLCD.drawLine (xpos+1, 1, xpos+1, 239);
-// Draw the new data
+    if (xpos==0) TV.draw_line((120*(xpos+1))/320, 1, (120*(xpos+1))/320, 96); // myGLCD.drawLine (xpos+1, 1, xpos+1, 239);
+// Draw the new data // SONO ARRIVATO QUAAAA
     myGLCD.setColor(255, 255, 255);
     myGLCD.drawLine (xpos, 255-Sample[xpos]*4, xpos+1, 255-Sample[xpos+1]*4); 
   }  
